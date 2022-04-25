@@ -23,15 +23,17 @@ EXPOSE 5900 5901
 # Install custom packages
 # TODO: ohmyzsh, powerlevel10k
 
-RUN apt-get -y install vim curl tmux
+RUN apt-get -y install vim curl tmux autocutsel firefox-esr
 
 # Chezmoi
 RUN sh -c "$(curl -fsLS chezmoi.io/get)" && \
     git clone https://github.com/auser/dotfiles.git ~/.local/share/chezmoi
 
 # ZSH
-RUN chsh -s $(which zsh) root
+# RUN chsh -s $(which zsh) root
 
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod 755 /entrypoint.sh
+RUN chmod 755 /entrypoint.sh && mkdir /root/.vnc
+COPY xstartup /root/.vnc/xstartup
+RUN chmod 755 /root/.vnc/xstartup
 ENTRYPOINT [ "/entrypoint.sh" ]
