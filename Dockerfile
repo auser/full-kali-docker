@@ -33,7 +33,9 @@ RUN sh -c "$(curl -fsLS chezmoi.io/get)" && \
 # RUN chsh -s $(which zsh) root
 
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod 755 /entrypoint.sh && mkdir /root/.vnc
-COPY xstartup /root/.vnc/xstartup
-RUN chmod 755 /root/.vnc/xstartup
+COPY ./xstartup /root/.vnc/xstartup
+RUN chmod 755 /entrypoint.sh && \
+    mkdir -p /root/.vnc && \
+    chmod 755 /root/.vnc/xstartup
+
 ENTRYPOINT [ "/entrypoint.sh" ]

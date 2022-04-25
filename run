@@ -1,1 +1,1 @@
-docker run -p 5900:5900 --privileged -v $(pwd)/:/root --rm -it auser/kali 
+docker run -p 5900:5900 --privileged -v $(pwd)/:/root/work --rm -it auser/kali
